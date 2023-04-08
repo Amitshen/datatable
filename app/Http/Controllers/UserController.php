@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class UserController extends Controller
 {
@@ -12,7 +13,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id','desc')->get();
+
+        // $result = $users->search(function($usr){
+        //     return $usr->email == 'bauch.filiberto@yahoo.com'; //return index
+        // });
+        
+
+        // dd($users);
+        // $result = $users->each(function($usr){
+        //     // return $usr->where('city','bihar');
+        //     $usr->name = null;
+        //     // unset($usr->email);
+        // });
+        // $result = $users->whereIn('city',['bihar','Karliport','Davonteside','Kundemouth']);
         return view('welcome',compact('users'));
     }
 
@@ -30,6 +44,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        if($request->hasFile('image'))
+        {
+            $images = $request->file('image');
+            foreach($images as $pic)
+            {
+                
+            }
+        }
         $user = User::create($request->all());
         return redirect()->back()->with('success','User register successfulluy');
     }
