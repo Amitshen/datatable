@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i=1; $i<=100; $i++)
+        for($i=1; $i<=100000; $i++)
         {
             $faker = Faker::create();
             $user = new User;
@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             $user->city = $faker->city;
             $user->branch = 'CSE';
             $user->password = $faker->password;
+            $user->save();
         }
     }
 }

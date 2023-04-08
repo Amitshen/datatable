@@ -31,18 +31,26 @@
                     <th data-sortable='false'>Email</th>
                     <th>Brandch</th>
                     <th>City</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @forelse ($users as $user)
                 <tr>
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->branch}}</td>
                     <td>{{$user->city}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">Edit</button>
+                    </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="6" class="text-danger text-center">No Data Found</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
@@ -60,7 +68,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{route('users.store')}}" method="post">
+                <form action="{{route('users.store')}}" method="post" nctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -84,6 +92,10 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Branch</label>
                             <input type="text" class="form-control" name="branch">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Images</label>
+                            <input type="file" class="form-control" name="image[]" multiple>
                         </div>
                     </div>
                     <div class="modal-footer">
